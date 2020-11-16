@@ -7,10 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class BookService {
@@ -22,7 +20,12 @@ public class BookService {
     }
 
     public ResponseEntity<?> getAllBooksSortByTitle() {
-        return new ResponseEntity<>(new BookResponse(repository.getAllSortByTitle()), HttpStatus.OK);
+        List<Book> books = repository.getAll()
+                .stream()
+                .sorted((b1, b2) -> b2.getTitle().compareTo(b1.getTitle()))
+                .collect(Collectors.toList());
+//        repository.getAllSortByTitle();
+        return  new ResponseEntity<>(new BookResponse(books), HttpStatus.OK);
     }
 
     public ResponseEntity<?> getAllGroupByAuthors() {
