@@ -1,0 +1,5 @@
+db:
+  driver: com.mysql.cj.jdbc.Driver
+  username: fabritsiusda
+  password: password
+  url: jdbc:mysql://localhost:3306/book_library?createDatabaseIfNotExist=true
